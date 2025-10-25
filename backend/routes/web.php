@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+use function Laravel\Prompts\error;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,5 +16,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return error('Nothing to see here.');
 });
