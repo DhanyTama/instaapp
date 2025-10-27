@@ -11,3 +11,4 @@ export function setAuthToken(token?: string) {
         delete api.defaults.headers.common["Authorization"];
     }
 }
+

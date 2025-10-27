@@ -1,5 +1,6 @@
 "use client";
 import { useAuth } from "@/context/AuthContext";
+import Link from "next/link";
 import { useForm } from "react-hook-form";
 
 interface LoginFormData {
@@ -37,6 +38,13 @@ export default function LoginPage() {
                 >
                     Masuk
                 </button>
+
+                <p className="text-center text-sm text-gray-500">
+                    Belum punya akun?{" "}
+                    <Link href="/auth/register" className="text-blue-600 hover:underline font-semibold">
+                        Daftar
+                    </Link>
+                </p>
             </form>
         </div>
     );

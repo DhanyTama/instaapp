@@ -1,5 +1,6 @@
 "use client";
 import { useAuth } from "@/context/AuthContext";
+import Link from "next/link";
 import { useForm } from "react-hook-form";
 
 interface RegisterFormData {
@@ -65,6 +66,13 @@ export default function RegisterPage() {
                 >
                     Daftar
                 </button>
+
+                <p className="text-center text-sm text-gray-500">
+                    Sudah punya akun?{" "}
+                    <Link href="/auth/login" className="text-blue-600 hover:underline font-semibold">
+                        Masuk
+                    </Link>
+                </p>
             </form>
         </div>
     );
