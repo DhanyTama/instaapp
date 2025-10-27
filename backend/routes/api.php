@@ -28,13 +28,13 @@ Route::prefix('v1')->group(function () {
 
     Route::get('posts/{id}/comments', [CommentController::class, 'index']);
 
+    Route::get('users/{username}', [UserController::class, 'show']);
+
     Route::middleware('auth:api')->group(function () {
         Route::get('auth/me', [AuthController::class, 'me'])->name('me');
 
         Route::get('me', [UserController::class, 'profile']);
         Route::put('me', [UserController::class, 'updateProfile']);
-        Route::post('me/avatar', [UserController::class, 'uploadAvatar']);
-        Route::get('users/{username}', [UserController::class, 'show']);
 
         Route::apiResource('posts', PostController::class)
             ->except(['index', 'show'])

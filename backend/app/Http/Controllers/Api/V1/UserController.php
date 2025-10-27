@@ -35,30 +35,22 @@ class UserController extends Controller
         return ApiResponse::success($user, 'Profile updated successfully');
     }
 
-    public function uploadAvatar(Request $req)
-    {
-        $req->validate([
-            'avatar' => 'required|image|max:2048',
-        ]);
-
-        $authUser = auth()->user();
-        $user = $authUser instanceof User
-            ? $authUser
-            : User::find(auth()->id());
-
-        $path = $req->file('avatar')->store('avatars', 'public');
-
-        $user->avatar_url = Storage::url($path);
-        $user->save();
-
-        return ApiResponse::success(['avatar_url' => $user->avatar_url], 'Avatar uploaded successfully');
-    }
-
     public function show($username)
     {
         $user = User::where('username', $username)
             ->withCount(['posts', 'likes', 'comments'])
-            ->firstOrFail();
+            ->first();
+        if (!$user) {
+            return ApiResponse::error('User not found', 404);
+        }
+
+        $currentUser = auth()->user();
+
+        if ($user->role === 'admin') {
+            if (!$currentUser || $currentUser->role !== 'admin') {
+                return ApiResponse::error('Anda tidak memiliki akses ke profil ' . $username, 403);
+            }
+        }
 
         return ApiResponse::success($user, 'User profile fetched successfully');
     }

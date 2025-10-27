@@ -31,7 +31,7 @@ class PostController extends Controller
         $req->validate([
             'caption' => 'nullable|string',
             'files' => 'required|array|min:1',
-            'files.*' => 'required|image|max:5120'
+            'files.*' => 'required|file|max:5120',
         ]);
 
         $post = Post::create([

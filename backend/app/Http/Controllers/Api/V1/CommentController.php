@@ -25,7 +25,7 @@ class CommentController extends Controller
             ->orderBy('created_at', 'asc')
             ->paginate(10);
 
-        return ApiResponse::success('Comments retrieved successfully', $comments);
+        return ApiResponse::success($comments, 'Comments retrieved successfully');
     }
 
     public function store(Request $req, $postId)
@@ -48,7 +48,7 @@ class CommentController extends Controller
             'parent_id' => $req->parent_id
         ]);
 
-        return ApiResponse::success('Comment added successfully', $comment->load('user'), 201);
+        return ApiResponse::success($comment->load('user'), 'Comment added successfully', 201);
     }
 
     public function destroy($commentId)
